@@ -68,10 +68,14 @@ class ChatCLI:
             # Add assistant message to history
             self.messages.append({"role": "assistant", "content": response_text})
 
+async def start_chat():
+    """Async entry point for the chat CLI."""
+    cli = ChatCLI()
+    await cli.chat_loop()
+
 def run_chat():
     """Entry point wrapper for the async chat loop."""
-    cli = ChatCLI()
-    asyncio.run(cli.chat_loop())
+    asyncio.run(start_chat())
     
 if __name__ == "__main__":
     run_chat()

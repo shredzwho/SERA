@@ -6,17 +6,31 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
 
 from dotenv import load_dotenv
-from sera.cli.chat import run_chat
+import argparse
+from sera.cli.chat import start_chat
+from sera.api import serve_server
 
-def main():
-    """
-    Main entry point for the Sera prototype.
-    """
+async def main():
+    parser = argparse.ArgumentParser(description="Sera: AI Hacking Assistant")
+    parser.add_argument("--server", action="store_true", help="Start the Sera Shadow API server")
+    parser.add_argument("--port", type=int, default=8000, help="Port for the API server")
+    
+    args = parser.parse_args()
+
     # Load environment variables from .env file
     load_dotenv()
     
-    # Run the chat CLI
-    run_chat()
+    if args.server:
+        print(f"[*] Initializing Sera Shadow Neural Interface on port {args.port}...")
+        await serve_server(port=args.port)
+    else:
+        # Default to CLI mode
+        await start_chat()
 
 if __name__ == "__main__":
-    main()
+    import asyncio
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\n[!] Session Terminated.")
+        sys.exit(0)
