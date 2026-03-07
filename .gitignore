@@ -47,3 +47,8 @@ test_data/
 dist/
 build/
 *.egg-info/
+
+# Project configuration
+codebase_rules.md
+
+
