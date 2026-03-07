@@ -4,6 +4,9 @@ from google.genai import types
 
 from sera.core.persona import SERA_SYSTEM_PROMPT
 from sera.rag.retriever import ContextRetriever
+from sera.tools.execute import execute_shell_command
+from sera.tools.recon import scan_target
+from sera.tools.vulnerability_db import search_vulnerabilities
 from typing import Optional
 
 class LLMClient:
@@ -57,15 +60,19 @@ class LLMClient:
         config = types.GenerateContentConfig(
              system_instruction=system_instruction,
              temperature=0.7,
+             tools=[execute_shell_command, scan_target, search_vulnerabilities],
         )
              
         try:
-            # We use generate_content_async for async support
+            # The google-genai SDK supports automatic function calling.
+            # When we pass `tools=[execute_shell_command]`, the SDK will automatically
+            # call the function locally and loop back to the model under the hood.
             response = await self.client.aio.models.generate_content(
                 model=self.model,
                 contents=gemini_messages,
                 config=config
             )
             return response.text
+            
         except Exception as e:
             return f"[Error communicating with LLM: {str(e)}]"
