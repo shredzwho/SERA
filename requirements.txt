@@ -1,0 +1,5 @@
+google-genai==0.3.0
+rich==13.9.4
+python-dotenv==1.0.1
+chromadb
+sentence-transformers

@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest / Coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# macOS / OS generated
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+pyrightconfig.json
+
+# Project specific data and test files
+data/
+chroma_db/
+test_data/
+
+# Typical python distributions
+dist/
+build/
+*.egg-info/
